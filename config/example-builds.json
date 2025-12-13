@@ -1,0 +1,118 @@
+{
+  "$schema": "./schemas/example-builds.schema.json",
+  "description": "RISC-V example build profile configurations",
+  "builds": {
+    "default": {
+      "arch": "rv32gc",
+      "abi": "ilp32f",
+      "cmake_flags": "",
+      "build_dir": "build",
+      "runs_count": 1,
+      "description": "Full ISA with floating point (default)"
+    },
+    "scalar": {
+      "arch": "rv32im_zicsr_zifencei",
+      "abi": "ilp32",
+      "cmake_flags": "",
+      "build_dir": "build_rv32im",
+      "runs_count": 1,
+      "description": "Scalar only (no vectors)"
+    },
+    "autovect": {
+      "arch": "rv32im_zicsr_zifencei_zve32x_zvl1024b",
+      "abi": "ilp32",
+      "cmake_flags": "",
+      "build_dir": "build_rv32im_zve32x",
+      "runs_count": 1,
+      "description": "Auto-vectorization (compiler-generated vectors)"
+    },
+    "manual": {
+      "arch": "rv32im_zicsr_zifencei_zve32x_zvl1024b",
+      "abi": "ilp32",
+      "cmake_flags": "-DUSE_VEXT=ON",
+      "build_dir": "build_rv32im_zve32x_manual",
+      "runs_count": 1,
+      "description": "Manual vectorization (USE_VEXT enabled)"
+    },
+    "default_runs1": {
+      "arch": "rv32gc",
+      "abi": "ilp32f",
+      "cmake_flags": "",
+      "build_dir": "build_runs1",
+      "runs_count": 1,
+      "description": "Default configuration with 1 simulation run"
+    },
+    "default_runs2": {
+      "arch": "rv32gc",
+      "abi": "ilp32f",
+      "cmake_flags": "",
+      "build_dir": "build_runs2",
+      "runs_count": 2,
+      "description": "Default configuration with 2 simulation runs"
+    },
+    "default_runs4": {
+      "arch": "rv32gc",
+      "abi": "ilp32f",
+      "cmake_flags": "",
+      "build_dir": "build_runs4",
+      "runs_count": 4,
+      "description": "Default configuration with 4 simulation runs"
+    },
+    "default_runs8": {
+      "arch": "rv32gc",
+      "abi": "ilp32f",
+      "cmake_flags": "",
+      "build_dir": "build_runs8",
+      "runs_count": 8,
+      "description": "Default configuration with 8 simulation runs"
+    },
+    "default_runs16": {
+      "arch": "rv32gc",
+      "abi": "ilp32f",
+      "cmake_flags": "",
+      "build_dir": "build_runs16",
+      "runs_count": 16,
+      "description": "Default configuration with 16 simulation runs"
+    },
+    "scalar_runs1": {
+      "arch": "rv32im_zicsr_zifencei",
+      "abi": "ilp32",
+      "cmake_flags": "",
+      "build_dir": "build_rv32im_runs1",
+      "runs_count": 1,
+      "description": "Scalar configuration with 1 simulation run"
+    },
+    "scalar_runs2": {
+      "arch": "rv32im_zicsr_zifencei",
+      "abi": "ilp32",
+      "cmake_flags": "",
+      "build_dir": "build_rv32im_runs2",
+      "runs_count": 2,
+      "description": "Scalar configuration with 2 simulation runs"
+    },
+    "scalar_runs4": {
+      "arch": "rv32im_zicsr_zifencei",
+      "abi": "ilp32",
+      "cmake_flags": "",
+      "build_dir": "build_rv32im_runs4",
+      "runs_count": 4,
+      "description": "Scalar configuration with 4 simulation runs"
+    },
+    "scalar_runs8": {
+      "arch": "rv32im_zicsr_zifencei",
+      "abi": "ilp32",
+      "cmake_flags": "",
+      "build_dir": "build_rv32im_runs8",
+      "runs_count": 8,
+      "description": "Scalar configuration with 8 simulation runs"
+    },
+    "scalar_runs16": {
+      "arch": "rv32im_zicsr_zifencei",
+      "abi": "ilp32",
+      "cmake_flags": "",
+      "build_dir": "build_rv32im_runs16",
+      "runs_count": 16,
+      "description": "Scalar configuration with 16 simulation runs"
+    }
+  }
+}

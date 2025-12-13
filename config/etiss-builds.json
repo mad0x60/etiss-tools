@@ -1,0 +1,56 @@
+{
+  "$schema": "./schemas/etiss-builds.schema.json",
+  "description": "ETISS build variant configurations",
+  "builds": {
+    "default": {
+      "cmake_flags": "-DCMAKE_CXX_STANDARD=17 -DCMAKE_BUILD_TYPE=Release",
+      "build_dir": "build",
+      "description": "Default release build"
+    },
+    "debug": {
+      "cmake_flags": "-DCMAKE_CXX_STANDARD=17 -DCMAKE_BUILD_TYPE=Debug",
+      "build_dir": "build",
+      "description": "Debug build with symbols"
+    },
+    "profile": {
+      "cmake_flags": "-DCMAKE_CXX_STANDARD=17 -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_CXX_FLAGS_RELWITHDEBINFO=\"-O3 -g -DNDEBUG -fno-omit-frame-pointer\"",
+      "build_dir": "build",
+      "description": "Profile build: O3 optimization with debug symbols"
+    },
+    "profile_old_decoder": {
+      "cmake_flags": "-DCMAKE_CXX_STANDARD=17 -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_CXX_FLAGS_RELWITHDEBINFO=\"-O3 -g -DNDEBUG -fno-omit-frame-pointer\" -DETISS_NEW_DECODER=OFF",
+      "build_dir": "profile_old_decoder",
+      "description": "Profile build with OLD decoder (chunk-based)"
+    },
+    "profile_new_decoder": {
+      "cmake_flags": "-DCMAKE_CXX_STANDARD=17 -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_CXX_FLAGS_RELWITHDEBINFO=\"-O3 -g -DNDEBUG -fno-omit-frame-pointer\" -DETISS_NEW_DECODER=ON",
+      "build_dir": "profile_new_decoder",
+      "description": "Profile build with NEW decoder (hierarchical map)"
+    },
+    "profile_old_decoder_nostats": {
+      "cmake_flags": "-DCMAKE_CXX_STANDARD=17 -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_CXX_FLAGS_RELWITHDEBINFO=\"-O3 -g -DNDEBUG -fno-omit-frame-pointer\" -DETISS_NEW_DECODER=OFF -DETISS_TRANSLATOR_STAT=OFF",
+      "build_dir": "profile_old_decoder_nostats",
+      "description": "Profile build with OLD decoder (chunk-based) - NO STATS (no timing overhead)"
+    },
+    "profile_new_decoder_nostats": {
+      "cmake_flags": "-DCMAKE_CXX_STANDARD=17 -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_CXX_FLAGS_RELWITHDEBINFO=\"-O3 -g -DNDEBUG -fno-omit-frame-pointer\" -DETISS_NEW_DECODER=ON -DETISS_TRANSLATOR_STAT=OFF",
+      "build_dir": "profile_new_decoder_nostats",
+      "description": "Profile build with NEW decoder (hierarchical map) - NO STATS (no timing overhead)"
+    },
+    "tcc": {
+      "cmake_flags": "-DCMAKE_CXX_STANDARD=17 -DENABLE_JIT_LLVM=OFF -DENABLE_JIT_GCC=OFF",
+      "build_dir": "build_tcc",
+      "description": "TCC JIT only (for fast iteration)"
+    },
+    "llvm": {
+      "cmake_flags": "-DCMAKE_CXX_STANDARD=17 -DENABLE_JIT_TCC=OFF -DENABLE_JIT_GCC=OFF",
+      "build_dir": "build_llvm",
+      "description": "LLVM JIT only (for optimization experiments)"
+    },
+    "all": {
+      "cmake_flags": "-DCMAKE_CXX_STANDARD=17 -DENABLE_JIT_TCC=ON -DENABLE_JIT_LLVM=ON -DENABLE_JIT_GCC=ON",
+      "build_dir": "build",
+      "description": "All JITs enabled (default)"
+    }
+  }
+}

@@ -1,0 +1,60 @@
+# Build Profile Configurations
+# 
+# RISC-V Example Build Profiles
+# Format: PROFILE_NAME|ARCH|ABI|EXTRA_FLAGS|BUILD_DIR|RUNS_COUNT
+#
+# Available profiles for etiss_riscv_examples:
+
+# Full ISA with floating point (default)
+default|rv32gc|ilp32f||build|1
+
+# Scalar only (no vectors)
+scalar|rv32im_zicsr_zifencei|ilp32||build_rv32im|1
+
+# Auto-vectorization (compiler-generated vectors)
+autovect|rv32im_zicsr_zifencei_zve32x_zvl1024b|ilp32||build_rv32im_zve32x|1
+
+# Manual vectorization (USE_VEXT enabled)
+manual|rv32im_zicsr_zifencei_zve32x_zvl1024b|ilp32|-DUSE_VEXT=ON|build_rv32im_zve32x_manual|1
+
+# Variations with different SIMULATION_RUNS_COUNT for profiling
+default_runs1|rv32gc|ilp32f||build_runs1|1
+default_runs2|rv32gc|ilp32f||build_runs2|2
+default_runs4|rv32gc|ilp32f||build_runs4|4
+default_runs8|rv32gc|ilp32f||build_runs8|8
+default_runs16|rv32gc|ilp32f||build_runs16|16
+
+scalar_runs1|rv32im_zicsr_zifencei|ilp32||build_rv32im_runs1|1
+scalar_runs2|rv32im_zicsr_zifencei|ilp32||build_rv32im_runs2|2
+scalar_runs4|rv32im_zicsr_zifencei|ilp32||build_rv32im_runs4|4
+scalar_runs8|rv32im_zicsr_zifencei|ilp32||build_rv32im_runs8|8
+scalar_runs16|rv32im_zicsr_zifencei|ilp32||build_rv32im_runs16|16
+
+#
+# ETISS Build Variants
+# Format: VARIANT_NAME|CMAKE_FLAGS|BUILD_DIR
+#
+
+# Default release build
+etiss_default|-DCMAKE_CXX_STANDARD=17 -DCMAKE_BUILD_TYPE=Release|build
+
+# Debug build with symbols
+etiss_debug|-DCMAKE_CXX_STANDARD=17 -DCMAKE_BUILD_TYPE=Debug|build
+
+# Profile build: O3 optimization with debug symbols
+etiss_profile|-DCMAKE_CXX_STANDARD=17 -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_CXX_FLAGS_RELWITHDEBINFO="-O3 -g -DNDEBUG -fno-omit-frame-pointer"|build
+
+# Profile build with OLD decoder (chunk-based)
+etiss_profile_old_decoder|-DCMAKE_CXX_STANDARD=17 -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_CXX_FLAGS_RELWITHDEBINFO="-O3 -g -DNDEBUG -fno-omit-frame-pointer" -DETISS_NEW_DECODER=OFF|profile_old_decoder
+
+# Profile build with NEW decoder (hierarchical map)
+etiss_profile_new_decoder|-DCMAKE_CXX_STANDARD=17 -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_CXX_FLAGS_RELWITHDEBINFO="-O3 -g -DNDEBUG -fno-omit-frame-pointer" -DETISS_NEW_DECODER=ON|profile_new_decoder
+
+# TCC JIT only (for fast iteration)
+etiss_tcc|-DCMAKE_CXX_STANDARD=17 -DENABLE_JIT_LLVM=OFF -DENABLE_JIT_GCC=OFF|build_tcc
+
+# LLVM JIT only (for optimization experiments)
+etiss_llvm|-DCMAKE_CXX_STANDARD=17 -DENABLE_JIT_TCC=OFF -DENABLE_JIT_GCC=OFF|build_llvm
+
+# All JITs enabled (default)
+etiss_all|-DCMAKE_CXX_STANDARD=17 -DENABLE_JIT_TCC=ON -DENABLE_JIT_LLVM=ON -DENABLE_JIT_GCC=ON|build
